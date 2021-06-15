@@ -33,7 +33,7 @@ public abstract class Lesson implements Serializable {
 	private Section section;
 	
 	@ManyToMany
-	@JoinTable(name = "tb_lesson_done", //tabela com 3 colunas
+	@JoinTable(name = "tb_lessons_done", //tabela com 3 colunas
 	joinColumns = @JoinColumn(name="lesson_id"),
 	inverseJoinColumns = {
 			@JoinColumn(name="user_id"), //chave composta
