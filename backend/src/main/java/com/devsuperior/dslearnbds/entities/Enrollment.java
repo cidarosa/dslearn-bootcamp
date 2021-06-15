@@ -2,13 +2,26 @@ package com.devsuperior.dslearnbds.entities;
 
 import java.time.Instant;
 
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import com.devsuperior.dslearnbds.entities.pk.EnrollmentPK;
 
+@Entity
+@Table(name = "tb_enrollment")
 public class Enrollment {
 	
+	//PK para classe de associação - precisa instanciar
+	//chave composta
+	@EmbeddedId
 	private EnrollmentPK id = new EnrollmentPK(); //PK para classe de associação - precisa instanciar
 	
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE") //UTC
 	private Instant enrollMoment;
+	
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE") //UTC
 	private Instant refundMoment;
 	private boolean available;
 	private boolean onlyUpdate;
@@ -26,10 +39,8 @@ public class Enrollment {
 		this.available = available;
 		this.onlyUpdate = onlyUpdate;
 	}
-
-	/*
-	 * public EnrollmentPK getId() { return id; }
-	 */
+	
+	//feito manualmente
 	public User getStudent() {
 		return id.getUser();
 	}
@@ -61,11 +72,7 @@ public class Enrollment {
 	public boolean isOnlyUpdate() {
 		return onlyUpdate;
 	}
-
-	/*
-	 * public void setId(EnrollmentPK id) { this.id = id; }
-	 */
-
+	
 	public void setEnrollMoment(Instant enrollMoment) {
 		this.enrollMoment = enrollMoment;
 	}
@@ -81,6 +88,5 @@ public class Enrollment {
 	public void setOnlyUpdate(boolean onlyUpdate) {
 		this.onlyUpdate = onlyUpdate;
 	}
-	
 
 }
