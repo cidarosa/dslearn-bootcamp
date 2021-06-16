@@ -35,6 +35,9 @@ public class Offer implements Serializable {
 	@JoinColumn(name = "course_id") //FK na tabela Offer
 	private Course course;
 	
+	@OneToMany(mappedBy = "offer")
+	private List<Topic> topics = new ArrayList<>();
+	
 	@OneToMany(mappedBy = "offer") //nome do atributo da outra tabela/classe
 	private List<Resource> resources = new ArrayList<>();	
 	
