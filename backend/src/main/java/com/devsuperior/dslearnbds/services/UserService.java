@@ -20,17 +20,17 @@ public class UserService implements UserDetailsService {
 
 	// para Log
 	private static Logger logger = LoggerFactory.getLogger(UserService.class);
-	/*
-	 * @Autowired private BCryptPasswordEncoder passwordEncoder;
-	 */
+	
 	@Autowired
 	private UserRepository repository;
 
-	/*
-	 * @Autowired private RoleRepository roleRepository;
-	 */
+	@Autowired
+	private AuthService authService;
 
 	public UserDTO findById(Long id) {
+		
+		authService.validateSelfOrAdmin(id); //validando - se não lança exception
+		
 		Optional<User> obj = repository.findById(id);
 		User entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
 		return new UserDTO(entity);
