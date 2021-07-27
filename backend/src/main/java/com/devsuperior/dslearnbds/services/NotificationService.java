@@ -21,11 +21,12 @@ public class NotificationService {
 	private AuthService authService; //pegar quem está logado
 	
 	@Transactional(readOnly = true)
-	public Page<NotificationDTO> notificationsForCurrentUser(Pageable pageable){
+	public Page<NotificationDTO> notificationsForCurrentUser(boolean unreadOnly, Pageable pageable){
 		
 		User user = authService.authenticated(); //pegar quem está logado
 		//buscar DB as notificações desse User, paginada
-		Page<Notification> page = repository.findByUser(user, pageable);  //método criado no NotificationRepository
+		//Page<Notification> page = repository.findByUser(user, pageable);  //método criado no NotificationRepository
+		Page<Notification> page = repository.find(user, unreadOnly, pageable);  //método criado no NotificationRepository
 		return page.map(x -> new NotificationDTO(x));
 	}
 	
